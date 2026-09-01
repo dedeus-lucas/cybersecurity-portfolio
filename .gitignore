@@ -1,0 +1,46 @@
+# Operating System & IDE Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Secrets, Keys & Credentials (CRITICAL)
+*.pem
+*.key
+*.pub
+*.pfx
+*.kdbx
+id_rsa
+id_ecdsa
+id_ed25519
+.env
+.env.*
+!.env.example
+secrets.json
+
+# Virtual Machine Hard Disks & Hypervisor Artifacts
+*.vdi
+*.vmdk
+*.vhd
+*.vhdx
+*.nvram
+*.vbox
+*.vbox-prev
+*.ova
+*.ovf
+*.iso
+
+# Telemetry, PCAP & Large Memory Dumps
+*.pcap
+*.pcapng
+*.cap
+*.dmp
+*.raw
+*.mem
+*.log
+!00-cyber-range/evidence/**/*.log
+
+# Temporary / Build Files
+__pycache__/
+*.pyc
+node_modules/
