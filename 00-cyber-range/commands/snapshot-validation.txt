@@ -1,0 +1,21 @@
+===============================================================================
+LAB-00: RAW EVIDENCE - HYPERVISOR SNAPSHOT & VM STATE INTEGRITY
+Timestamp: 2026-09-04 18:02:51 -03
+Scope: Baseline Snapshot Registration, VM Configuration, and Recovery State
+===============================================================================
+
+[HOST -> VIRTUALBOX SNAPSHOT LISTING (Detailed State)]
+   Name: GOLDEN_IMAGE_BASE_CLI (UUID: 3203ae73-016a-4369-8eef-fb8b29879f14) *
+   Description: Debian 12 minimal sem interface grafica, rede dual NAT+HostOnly configurada e acesso SSH por chave Ed25519 consolidado.
+
+[HOST -> VM CONFIGURATION PROPERTIES]
+Name:                        srv-linux-base
+Memory size:                 1024MB
+Graphics Controller:         VBoxVGA
+NIC 1:                       MAC: 0800278649A4, Attachment: NAT, Cable connected: on, Trace: off (file: none), Type: 82540EM, Reported speed: 0 Mbps, Boot priority: 0, Promisc Policy: deny, Bandwidth group: none
+NIC 2:                       MAC: 080027A73AD2, Attachment: Host-only Interface 'VirtualBox Host-Only Ethernet Adapter', Cable connected: on, Trace: off (file: none), Type: 82540EM, Reported speed: 0 Mbps, Boot priority: 0, Promisc Policy: deny, Bandwidth group: none
+Name: 'shared', Host path: 'C:\Users\Lucas_Drac0\Desktop\personal_projects\pentest-lab\shared' (global mapping), writable, auto-mount
+   Name: GOLDEN_IMAGE_BASE_CLI (UUID: 3203ae73-016a-4369-8eef-fb8b29879f14) *
+
+[HOST -> VM POWER STATE]
+State:                       running (since 2026-09-03T23:09:47.801000000)

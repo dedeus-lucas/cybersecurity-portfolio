@@ -1,0 +1,48 @@
+===============================================================================
+LAB-00: RAW EVIDENCE - NETWORK BASELINE & ROUTING AUDIT
+Timestamp: 2026-09-04 18:02:51 -03
+Scope: Layer 2 / Layer 3 Addressing, Link Status, and Kernel Routing Table
+===============================================================================
+
+[WSL2 -> LOCAL ROUTING TABLE (Transit Gateway to Windows Host)]
+default via 172.24.64.1 dev eth0 proto kernel 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+172.18.0.0/16 dev br-3d3398a18e67 proto kernel scope link src 172.18.0.1 linkdown 
+172.19.0.0/16 dev br-91008e72f5ef proto kernel scope link src 172.19.0.1 
+172.20.0.0/16 dev br-81e71b8fa084 proto kernel scope link src 172.20.0.1 
+172.24.64.0/20 dev eth0 proto kernel scope link src 172.24.67.65 
+192.168.56.0/24 via 172.24.64.1 dev eth0 
+
+[VM -> NETWORK INTERFACES RUNTIME STATE (ip -brief address show)]
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp0s3           UP             10.0.2.15/24 fd17:625c:f037:2:a00:27ff:fe86:49a4/64 fe80::a00:27ff:fe86:49a4/64 
+enp0s8           UP             192.168.56.10/24 fe80::a00:27ff:fea7:3ad2/64 
+
+[VM -> DETAILED LINK & MAC ADDRESS STATUS (ip link show)]
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+    link/ether 08:00:27:86:49:a4 brd ff:ff:ff:ff:ff:ff
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+    link/ether 08:00:27:a7:3a:d2 brd ff:ff:ff:ff:ff:ff
+
+[VM -> KERNEL IPv4 ROUTE TABLE (ip route show)]
+default via 10.0.2.2 dev enp0s3 
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 
+169.254.0.0/16 dev enp0s3 scope link metric 1000 
+192.168.56.0/24 dev enp0s8 proto kernel scope link src 192.168.56.10 
+
+[VM -> PERSISTENT INTERFACE DECLARATION (/etc/network/interfaces)]
+# Loopback
+auto lo
+iface lo inet loopback
+
+# Interface 1: NAT (Acesso externo a Internet)
+auto enp0s3
+iface enp0s3 inet dhcp
+
+# Interface 2: Host-Only (Segmento Provado do Cyber Range)
+auto enp0s8
+iface enp0s8 inet static
+	address 192.168.56.10
+	netmask 255.255.255.0

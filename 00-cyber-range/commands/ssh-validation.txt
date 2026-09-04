@@ -1,0 +1,45 @@
+===============================================================================
+LAB-00: RAW EVIDENCE - SSH CONFIGURATION, CRYPTO KEYS & DAEMON STATE
+Timestamp: 2026-09-04 18:11:04 -03
+Scope: Ed25519 Asymmetric Authentication, Unix File Permissions,
+       and L4 Listening State
+===============================================================================
+
+[WSL2 -> SSH CLIENT CONFIGURATION (~/.ssh/config)]
+
+Host srv-linux-base
+    HostName 192.168.56.10
+    User lucas_dr4co
+    IdentityFile ~/.ssh/id_cyberrange
+    Port 22
+    IdentitiesOnly yes
+
+[WSL2 -> SSH IDENTITY FILE PERMISSIONS (Unix File Permissions)]
+-rw------- 1 lucas_drac0 lucas_drac0 411 Sep  3 11:35 /home/lucas_drac0/.ssh/id_cyberrange
+-rw-r--r-- 1 lucas_drac0 lucas_drac0  97 Sep  3 11:35 /home/lucas_drac0/.ssh/id_cyberrange.pub
+
+[WSL2 -> SSH PUBLIC KEY TYPE AND FINGERPRINT]
+256 SHA256:2HaNR35VenNJq1SDb7WS792bukZeNmiOxMLwD1axaQk admin-range@wsl (ED25519)
+
+[VM -> AUTHORIZED SSH KEY FINGERPRINTS]
+256 SHA256:2HaNR35VenNJq1SDb7WS792bukZeNmiOxMLwD1axaQk admin-range@wsl (ED25519)
+
+[VM -> SYSTEMD SSH SERVICE STATUS (Active/Running)]
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2026-09-03 20:10:39 -03; 22h ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 691 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 698 (sshd)
+      Tasks: 1 (limit: 1085)
+     Memory: 8.3M
+        CPU: 3.742s
+     CGroup: /system.slice/ssh.service
+             └─698 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Warning: some journal files were not opened due to insufficient permissions.
+
+[VM -> LAYER 4 SOCKET INSPECTION (TCP/22)]
+tcp   LISTEN 0      128          0.0.0.0:22         0.0.0.0:*    users:(("sshd",pid=698,fd=3))         
+tcp   LISTEN 0      128             [::]:22            [::]:*    users:(("sshd",pid=698,fd=4))         
